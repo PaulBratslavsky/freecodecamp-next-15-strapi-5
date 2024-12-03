@@ -7,7 +7,7 @@ export function ParagraphWithImage({
   image,
   reversed,
   imageLandscape,
-}: ParagraphWithImageProps) {
+}: Readonly<ParagraphWithImageProps>) {
   console.log(imageLandscape, "imageLandscape");
   return (
     <div className={`article-text-image ${reversed ? "article-text-image--reversed" : ""} ${imageLandscape ? "" : "article-text-image--portrait"}`}>

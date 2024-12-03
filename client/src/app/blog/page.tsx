@@ -2,7 +2,7 @@ import { ContentList } from "@/components/ContentList";
 import { getPageBySlug } from "@/data/loaders";
 import { notFound } from "next/navigation";
 import { blockRenderer } from "@/utils/block-renderer";
-import { Card } from "@/components/Card";
+import { Card, type CardProps } from "@/components/ContentList";
 
 async function loader() {
   const { data } = await getPageBySlug("blog");
@@ -16,6 +16,8 @@ interface SearchParamsProps {
     query?: string;
   };
 }
+
+const BlogCard = (props: Readonly<CardProps>) => <Card {...props} basePath="blog" />; 
 
 export default async function BlogRoute({ searchParams }: SearchParamsProps) {
   const params = (await searchParams) || {};
@@ -32,7 +34,8 @@ export default async function BlogRoute({ searchParams }: SearchParamsProps) {
         path="/api/articles"
         showSearch
         showPagination
-        component={(props) => <Card {...props} basePath="blog" />}
+        component={BlogCard}
+        layout="card"
       />
     </div>
   );

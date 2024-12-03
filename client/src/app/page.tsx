@@ -2,7 +2,7 @@ import { ContentList } from "@/components/ContentList";
 import { getHomePage } from "@/data/loaders";
 import { blockRenderer } from "@/utils/block-renderer";
 import { notFound } from "next/navigation";
-import { Card } from "@/components/Card";
+import { Card, type CardProps } from "@/components/ContentList";
 
 async function loader() {
   const { data } = await getHomePage();
@@ -10,15 +10,9 @@ async function loader() {
   return { blocks: data?.blocks };
 }
 
-interface SearchParamsProps {
-  searchParams?: {
-    page?: string;
-    query?: string;
-  };
-}
+const BlogCard = (props: Readonly<CardProps>) => <Card {...props} basePath="blog" />;
 
-export default async function HomeRoute({ searchParams }: SearchParamsProps) {
-  const params = (await searchParams) || {};
+export default async function HomeRoute() {
   const { blocks } = await loader();
   return (
     <div>
@@ -26,9 +20,9 @@ export default async function HomeRoute({ searchParams }: SearchParamsProps) {
       <div className="container">
         <ContentList
           headline="Featured Articles"
+          headlineAlignment="left"
           path="/api/articles"
-          component={(props) => <Card {...props} basePath="blog" />}
-          className="blog-preview"
+          component={BlogCard}
           featured
         />
       </div>

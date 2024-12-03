@@ -2,7 +2,7 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
 
-export function Search({ className }: { className: string }) {
+export function Search() {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
   const pathname = usePathname();
@@ -21,7 +21,7 @@ export function Search({ className }: { className: string }) {
   }, 300);
 
   return (
-    <div className={className}>
+    <div className="search">
       <input
         type="text"
         placeholder="Search"

@@ -8,7 +8,7 @@ export function FeaturedArticle({
   link,
   excerpt,
   image,
-}: FeaturedArticleProps) {
+}: Readonly<FeaturedArticleProps>) {
   return (
     <article className="highlight-article">
       <div className="highlight-article__info">

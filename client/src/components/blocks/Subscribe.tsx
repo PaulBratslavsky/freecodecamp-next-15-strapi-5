@@ -16,7 +16,7 @@ export function Subscribe({
   content,
   placeholder,
   buttonText,
-}: SubscribeProps) {
+}: Readonly<SubscribeProps>) {
   const [formState, formAction] = useActionState(
     subscribeAction,
     INITIAL_STATE

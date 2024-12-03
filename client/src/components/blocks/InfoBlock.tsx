@@ -4,7 +4,7 @@ import ReactMarkdown from "react-markdown";
 
 import type { InfoBlockProps } from "@/types";
 
-export function InfoBlock({ theme, reversed, image, headline, content, cta }: InfoBlockProps) {
+export function InfoBlock({ theme, reversed, image, headline, content, cta }: Readonly<InfoBlockProps>) {
   return (
     <section
       className={`info info--${theme} ${reversed && "info--reversed"}`}

@@ -1,4 +1,4 @@
-import { ArticleProps } from "@/types";
+import { ArticleProps, ImageProps } from "@/types";
 import { getContent } from "@/data/loaders";
 import { Search } from "./Search";
 import { PaginationComponent } from "./Pagination";
@@ -13,6 +13,7 @@ interface ContentListProps {
   className?: string;
   showSearch?: boolean;
   showPagination?: boolean;
+  headlineAlignment?: "center" | "right" | "left";
 }
 
 async function loader(
@@ -37,16 +38,17 @@ export async function ContentList({
   component,
   showSearch,
   showPagination,
-}: ContentListProps) {
+  headlineAlignment,
+}: Readonly<ContentListProps>) {
   const { articles, pageCount } = await loader(path, query, page, featured);
   const Component = component;
   return (
-    <section className="featured-items">
-      <h3 className="featured-items__headline">
+    <section className="content-items">
+      <h3 className={`content-items__headline ${headlineAlignment ?? ""}`}>
         {headline || "Featured Articles"}
       </h3>
-      {showSearch && <Search className="featured-items__search" />}
-      <div className="featured-items__container">
+      {showSearch && <Search />}
+      <div className="content-items__container--card">
         {articles.map((article) => (
           <Component key={article.documentId} {...article} basePath={path} />
         ))}
@@ -55,3 +57,51 @@ export async function ContentList({
     </section>
   );
 }
+import Link from "next/link";
+import { StrapiImage } from "./StrapiImage";
+import { formatDate } from "@/utils/format-date";
+
+export interface CardProps {
+  documentId: string;
+  title: string;
+  description: string;
+  slug: string;
+  image: ImageProps;
+  price?: number;
+  createdAt: string;
+  basePath: string;
+}
+
+
+export function Card({
+  title,
+  description,
+  slug,
+  image,
+  price,
+  createdAt,
+  basePath,
+}: Readonly<CardProps>) {
+  return (
+    <Link href={`/${basePath}/${slug}`} className="content-items__card">
+      <div className="content-items__card-img">
+        <StrapiImage
+          src={image.url}
+          alt={image.alternativeText || "No alternative text provided"}
+          width={100}
+          height={100}
+        />
+      </div>
+      <div className="content-items__card-text">
+        <h5>{title}</h5>
+        {price && <p>{price}</p>}
+        {createdAt && <p>{formatDate(createdAt)}</p>}
+        <p>{description.slice(0, 144)}...</p>
+      </div>
+    </Link>
+  );
+}
+
+
+
+

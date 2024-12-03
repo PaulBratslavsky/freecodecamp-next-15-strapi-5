@@ -11,7 +11,7 @@ export function HeroSection({
   author,
   publishedAt,
   darken = false,
-}: HeroSectionProps) {
+}: Readonly<HeroSectionProps>) {
   return (
     <section className="hero">
       <div className="hero__background">

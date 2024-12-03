@@ -1,4 +1,4 @@
-const BASE_URL = process.env.PUBLIC_API_URL || "http://localhost:1337";
+const BASE_URL = process.env.PUBLIC_API_URL ?? "http://localhost:1337";
 
 export async function subscribeService(email: string) {
   const url = new URL("/api/newsletter-signups", BASE_URL);

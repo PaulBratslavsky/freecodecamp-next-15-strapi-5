@@ -1,13 +1,12 @@
-import type { ArticleProps } from "@/types";
+import type { ArticleProps, Block } from "@/types";
 import { getArticleBySlug } from "@/data/loaders";
 import { notFound } from "next/navigation";
 import { blockRenderer } from "@/utils/block-renderer";
 import { formatDate } from "@/utils/format-date";
 
-import type { Block } from "@/types";
 import { HeroSection } from "@/components/blocks/HeroSection";
 import { ContentList } from "@/components/ContentList";
-import { Card } from "@/components/Card";
+import { Card, type CardProps } from "@/components/ContentList";
 import Link from "next/link";
 
 interface SingleBlogRouteProps {
@@ -23,15 +22,19 @@ async function loader(slug: string) {
   return { article: article as ArticleProps, blocks: article?.blocks };
 }
 
+interface ArticleOverviewProps {
+  headline: string;
+  description: string;
+  tableOfContents: { heading: string; linkId: string }[];
+}
+
+const BlogCard = (props: Readonly<CardProps>) => <Card {...props} basePath="blog" />;
+
 function ArticleOverview({
   headline,
   description,
   tableOfContents,
-}: {
-  headline: string;
-  description: string;
-  tableOfContents: { heading: string; linkId: string }[];
-}) {
+}: Readonly<ArticleOverviewProps>) {
   return (
     <div className="article-overview">
       <div className="article-overview__info">
@@ -53,7 +56,9 @@ function ArticleOverview({
     </div>
   );
 }
-export default async function SingleBlogRoute(props: SingleBlogRouteProps) {
+export default async function SingleBlogRoute(
+  props: Readonly<SingleBlogRouteProps>
+) {
   const params = await props?.params;
   const { slug } = params;
   const { article, blocks } = await loader(slug);
@@ -62,8 +67,6 @@ export default async function SingleBlogRoute(props: SingleBlogRouteProps) {
   const tableOfContents = blocks?.filter(
     (block: Block) => block.__component === "blocks.heading"
   );
-
-  console.dir(blocks, { depth: null });
 
   return (
     <div>
@@ -83,11 +86,11 @@ export default async function SingleBlogRoute(props: SingleBlogRouteProps) {
           description={description}
           tableOfContents={tableOfContents}
         />
-        {blocks && blocks.map(blockRenderer)}
+        {blocks ? blocks.map(blockRenderer) : null}
         <ContentList
           headline="Featured Articles"
           path="/api/articles"
-          component={(props) => <Card {...props} basePath="blog" />}
+          component={BlogCard}
           className="blog-preview"
           featured={true}
         />
