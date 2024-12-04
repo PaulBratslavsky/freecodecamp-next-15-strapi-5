@@ -10,8 +10,8 @@ export function FeaturedArticle({
   image,
 }: Readonly<FeaturedArticleProps>) {
   return (
-    <article className="highlight-article">
-      <div className="highlight-article__info">
+    <article className="featured-article container">
+      <div className="featured-article__info">
         <h3>{headline}</h3>
         <ReactMarkdown className="copy">{excerpt}</ReactMarkdown>
         <Link

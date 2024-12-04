@@ -12,21 +12,21 @@ import { FullImage } from "@/components/blocks/FullImage";
 export function blockRenderer(block: Block) {
   switch (block.__component) {
     case "blocks.hero-section":
-      return <HeroSection {...block} />;
+      return <HeroSection {...block} key={block.id} />;
     case "blocks.info-block":
-      return <InfoBlock {...block} />;
+      return <InfoBlock {...block} key={block.id} />;
     case "blocks.featured-article":
-      return <FeaturedArticle {...block} />;
+      return <FeaturedArticle {...block} key={block.id} />;
     case "blocks.subscribe":
-      return <Subscribe {...block} />;
+      return <Subscribe {...block} key={block.id} />;
     case "blocks.heading":
-      return <Heading {...block} />;
+      return <Heading {...block} key={block.id} />;
     case "blocks.paragraph-with-image":
-      return <ParagraphWithImage {...block} />;
+      return <ParagraphWithImage {...block} key={block.id} />;
     case "blocks.paragraph":
-      return <Paragraph {...block} />;
+      return <Paragraph {...block} key={block.id} />;
     case "blocks.full-image":
-      return <FullImage {...block} />;
+      return <FullImage {...block} key={block.id} />;
     default:
       return null;
   }

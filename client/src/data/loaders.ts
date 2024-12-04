@@ -156,10 +156,8 @@ export async function getContent(path: string, query?: string, page?: string, fe
   return fetchAPI(url.href, { method: "GET" });
 }
 
-export async function getArticleBySlug(slug: string) {
-  const path = "/api/articles";
+export async function getContentBySlug(slug: string, path: string) {
   const url = new URL(path, BASE_URL);
-
   url.search = qs.stringify({
     filters: {
       slug: {

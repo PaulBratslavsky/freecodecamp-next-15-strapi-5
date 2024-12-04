@@ -29,13 +29,12 @@ export default async function BlogRoute({ searchParams }: SearchParamsProps) {
       {blocks.map(blockRenderer)}
       <ContentList
         headline="Check out our latest articles"
+        path="/api/articles"
         query={params?.query}
         page={params?.page}
-        path="/api/articles"
         showSearch
         showPagination
         component={BlogCard}
-        layout="card"
       />
     </div>
   );

@@ -42,6 +42,15 @@
 
   &__error {
     color: rgb(120, 2, 2);
+    font-size: 2rem;
+    text-align: center;
+    margin-top: 1.6rem;
+  }
+
+  &__success {
+    color: rgb(2, 120, 2);
+    font-size: 2rem;
+    text-align: center;
     margin-top: 1.6rem;
   }
 

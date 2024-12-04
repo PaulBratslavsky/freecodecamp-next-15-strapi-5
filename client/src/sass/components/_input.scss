@@ -15,6 +15,12 @@
     background-color: $light-brown;
   }
 
+  &__error {
+    color: red;
+    font-size: 1.6rem;
+    margin-top: 1.6rem;
+  }
+
   &__container {
     & .input {
       display: block;

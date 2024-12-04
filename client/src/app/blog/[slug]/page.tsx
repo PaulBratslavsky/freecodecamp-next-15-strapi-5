@@ -1,5 +1,5 @@
 import type { ArticleProps, Block } from "@/types";
-import { getArticleBySlug } from "@/data/loaders";
+import { getContentBySlug } from "@/data/loaders";
 import { notFound } from "next/navigation";
 import { blockRenderer } from "@/utils/block-renderer";
 import { formatDate } from "@/utils/format-date";
@@ -16,7 +16,7 @@ interface SingleBlogRouteProps {
 }
 
 async function loader(slug: string) {
-  const { data } = await getArticleBySlug(slug);
+  const { data } = await getContentBySlug(slug, "/api/articles");
   const article = data[0];
   if (!article) throw notFound();
   return { article: article as ArticleProps, blocks: article?.blocks };
@@ -91,7 +91,6 @@ export default async function SingleBlogRoute(
           headline="Featured Articles"
           path="/api/articles"
           component={BlogCard}
-          className="blog-preview"
           featured={true}
         />
       </div>

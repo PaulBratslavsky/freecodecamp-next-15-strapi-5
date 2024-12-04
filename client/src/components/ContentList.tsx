@@ -10,7 +10,6 @@ interface ContentListProps {
   path: string;
   featured?: boolean;
   component: React.ComponentType<ArticleProps & { basePath: string }>;
-  className?: string;
   showSearch?: boolean;
   showPagination?: boolean;
   headlineAlignment?: "center" | "right" | "left";
@@ -68,6 +67,7 @@ export interface CardProps {
   slug: string;
   image: ImageProps;
   price?: number;
+  startDate?: string;
   createdAt: string;
   basePath: string;
 }
@@ -80,6 +80,7 @@ export function Card({
   image,
   price,
   createdAt,
+  startDate,
   basePath,
 }: Readonly<CardProps>) {
   return (
@@ -94,14 +95,10 @@ export function Card({
       </div>
       <div className="content-items__card-text">
         <h5>{title}</h5>
-        {price && <p>{price}</p>}
-        {createdAt && <p>{formatDate(createdAt)}</p>}
+        {price && <p><span>Price: </span>{price}</p>}
+        {(startDate || createdAt) && <p>{formatDate(startDate || createdAt)}</p>}
         <p>{description.slice(0, 144)}...</p>
       </div>
     </Link>
   );
 }
-
-
-
-
