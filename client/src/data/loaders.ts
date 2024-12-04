@@ -1,7 +1,7 @@
 import qs from "qs";
 import { fetchAPI } from "@/utils/fetch-api";
 
-const BLOG_PAGE_SIZE = 6;
+const BLOG_PAGE_SIZE = 3;
 const BASE_URL = process.env.PUBLIC_API_URL ?? "http://localhost:1337";
 
 const blogPopulate = {

@@ -4,6 +4,8 @@ import { blockRenderer } from "@/utils/block-renderer";
 import { Block } from "@/types";
 import { SubmitButton } from "./SubmitButton";
 import { eventsSubscribeAction } from "@/data/actions";
+import { formatDate } from "@/utils/format-date";
+import { StrapiImage } from "./StrapiImage";
 
 const INITIAL_STATE = {
   zodErrors: null,
@@ -43,9 +45,18 @@ function TextInput({ id, label, name, type = "text", error, defaultValue }: Text
 export default function EventSignupForm({
   blocks,
   eventId,
+  startDate,
+  price,
+  image,
 }: {
   blocks: Block[];
   eventId: string;
+  startDate?: string;
+  price?: string;
+  image?: {
+    url: string;
+    alt: string;
+  };
 }) {
   const [formState, formAction] = useActionState(
     eventsSubscribeAction,
@@ -60,8 +71,18 @@ export default function EventSignupForm({
     <section className="signup-form">
       <div className="signup-form__info">
         <div>{blocks.map(blockRenderer)}</div>
+        {startDate && <p className="signup-form__date"><span>StartDate:</span> {formatDate(startDate)}</p>}
+        {price && <p className="signup-form__price"><span>Price:</span> {price}</p>}
       </div>
       <form className="signup-form__form" action={formAction}>
+        { image && <StrapiImage     
+          src={image.url}
+          alt={image.alt}
+          height={200}
+          width={200}
+            className="signup-form__image"
+          />
+        }
         <div className="signup-form__name-container">
           <TextInput
             id="firstName"

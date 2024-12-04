@@ -30,7 +30,13 @@ const EventCard = (props: Readonly<CardProps>) => (
   return (
     <div className="container">
       <div className="event-page">
-        <EventSignupForm blocks={blocks} eventId={event.documentId} />
+        <EventSignupForm
+          blocks={blocks}
+          eventId={event.documentId}
+          startDate={event.startDate}
+          price={event.price}
+          image={{ url: event?.image?.url, alt: event?.image?.alternativeText || "Event image" }}
+        />
       </div>
       <ContentList
         headline="Featured Events"
