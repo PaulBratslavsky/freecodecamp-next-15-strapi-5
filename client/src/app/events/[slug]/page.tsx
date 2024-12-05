@@ -3,7 +3,7 @@ import { ContentList } from "@/components/ContentList";
 import { Card, type CardProps } from "@/components/ContentList";
 import { getContentBySlug } from "@/data/loaders";
 import { notFound } from "next/navigation";
-import EventSignupForm from "@/components/EventSignupForm";
+import { EventSignupForm } from "@/components/EventSignupForm";
 
 async function loader(slug: string) {
   const { data } = await getContentBySlug(slug, "/api/events");
@@ -13,18 +13,15 @@ async function loader(slug: string) {
 }
 
 interface ParamsProps {
-  params: {
-    slug: string;
-  };
+  params: Promise<{ slug: string }>
 }
 
 const EventCard = (props: Readonly<CardProps>) => (
   <Card {...props} basePath="events" />
 );
 
-  export default async function SingleEventRoute(props: ParamsProps) {
-  const params = await props?.params;
-  const { slug } = params;
+export default async function SingleEventRoute({ params }: ParamsProps) {
+  const slug = (await params).slug;
   const { event, blocks } = await loader(slug);
 
   return (

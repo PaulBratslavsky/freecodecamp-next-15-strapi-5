@@ -10,18 +10,14 @@ async function loader() {
   return { blocks: data[0]?.blocks };
 }
 
-interface SearchParamsProps {
-  searchParams?: {
-    page?: string;
-    query?: string;
-  };
+interface PageProps {
+  searchParams: Promise<{ page?: string; query?: string }>
 }
 
 const BlogCard = (props: Readonly<CardProps>) => <Card {...props} basePath="blog" />; 
 
-export default async function BlogRoute({ searchParams }: SearchParamsProps) {
-  const params = (await searchParams) || {};
-
+export default async function BlogRoute({ searchParams }: PageProps) {
+  const { page, query } = await searchParams;
   const { blocks } = await loader();
   if (!blocks) notFound();
   return (
@@ -30,8 +26,8 @@ export default async function BlogRoute({ searchParams }: SearchParamsProps) {
       <ContentList
         headline="Check out our latest articles"
         path="/api/articles"
-        query={params?.query}
-        page={params?.page}
+        query={query}
+        page={page}
         showSearch
         showPagination
         component={BlogCard}

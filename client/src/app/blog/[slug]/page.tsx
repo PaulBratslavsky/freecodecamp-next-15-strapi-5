@@ -9,10 +9,8 @@ import { ContentList } from "@/components/ContentList";
 import { Card, type CardProps } from "@/components/ContentList";
 import Link from "next/link";
 
-interface SingleBlogRouteProps {
-  params: {
-    slug: string;
-  };
+interface PageProps {
+  params: Promise<{ slug: string }>
 }
 
 async function loader(slug: string) {
@@ -56,11 +54,8 @@ function ArticleOverview({
     </div>
   );
 }
-export default async function SingleBlogRoute(
-  props: Readonly<SingleBlogRouteProps>
-) {
-  const params = await props?.params;
-  const { slug } = params;
+export default async function SingleBlogRoute({ params }: PageProps) {
+  const slug = (await params).slug;
   const { article, blocks } = await loader(slug);
   const { title, author, publishedAt, description, image } = article;
 

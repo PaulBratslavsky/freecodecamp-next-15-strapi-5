@@ -8,15 +8,13 @@ async function loader(slug: string) {
   return { blocks: data[0]?.blocks };
 }
 
-interface DynamicPageRouteProps {
-  params: {
-    slug: string;
-  };
+interface PageProps {
+  params: Promise<{ slug: string }>
 }
 
-export default async function DynamicPageRoute(props: DynamicPageRouteProps) {
-  const params = await props?.params;
-  const { slug } = params;
+
+export default async function DynamicPageRoute({ params }: PageProps) {
+  const slug = (await params).slug;
   const { blocks } = await loader(slug);
   return <div>{blocks.map(blockRenderer)}</div>;
 }

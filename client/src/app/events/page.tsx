@@ -1,18 +1,9 @@
-import { ContentList } from '@/components/ContentList'
-import { Card, type CardProps  } from '@/components/ContentList'
-import EventSignupForm from '@/components/EventSignupForm';
-import { getContentBySlug } from '@/data/loaders';
-import { EventProps } from '@/types';
-import { notFound } from 'next/navigation';
-
-
-
-interface ParamsProps {
-  searchParams?: {
-    page?: string;
-    query?: string;
-  };
-}
+import { ContentList } from "@/components/ContentList";
+import { Card, type CardProps } from "@/components/ContentList";
+import { EventSignupForm } from "@/components/EventSignupForm";
+import { getContentBySlug } from "@/data/loaders";
+import { EventProps } from "@/types";
+import { notFound } from "next/navigation";
 
 async function loader(slug: string) {
   const { data } = await getContentBySlug(slug, "/api/events");
@@ -20,28 +11,38 @@ async function loader(slug: string) {
   if (!event) throw notFound();
   return { event: event as EventProps, blocks: event?.blocks };
 }
-  
-const EventCard = (props: Readonly<CardProps>) => <Card {...props} basePath="events" />;  
 
-  export default async function AllEventsRoute(props : ParamsProps) {
-  const searchParams = await props?.searchParams;
+interface ParamsProps {
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ page?: string; query?: string }>;
+}
 
-  const { event, blocks } = await loader("stay-in-touch");
+const EventCard = (props: Readonly<CardProps>) => (
+  <Card {...props} basePath="events" />
+);
+
+export default async function AllEventsRoute({
+  params,
+  searchParams,
+}: ParamsProps) {
+  const slug = (await params).slug;
+  const { query, page } = await searchParams;
+  const { event, blocks } = await loader(slug);
 
   return (
     <div className="container">
-        <div className="event-page">
+      <div className="event-page">
         <EventSignupForm blocks={blocks} eventId={event.documentId} />
       </div>
       <ContentList
         headline="All Events"
         path="/api/events"
-        query={searchParams?.query}
-        page={searchParams?.page}
+        query={query}
+        page={page}
         showSearch
         showPagination
         component={EventCard}
       />
     </div>
-  )
+  );
 }

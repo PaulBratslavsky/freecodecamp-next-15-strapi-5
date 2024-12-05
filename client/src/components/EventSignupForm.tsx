@@ -42,7 +42,7 @@ function TextInput({ id, label, name, type = "text", error, defaultValue }: Text
   );
 }
 
-export default function EventSignupForm({
+export function EventSignupForm({
   blocks,
   eventId,
   startDate,
