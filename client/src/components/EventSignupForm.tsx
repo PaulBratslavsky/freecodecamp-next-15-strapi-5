@@ -1,6 +1,6 @@
 "use client";
 import { useActionState } from "react";
-import { blockRenderer } from "@/utils/block-renderer";
+import { BlockRenderer } from "@/components/BlockRenderer";
 import { Block } from "@/types";
 import { SubmitButton } from "./SubmitButton";
 import { eventsSubscribeAction } from "@/data/actions";
@@ -70,7 +70,7 @@ export function EventSignupForm({
   return (
     <section className="signup-form">
       <div className="signup-form__info">
-        <div>{blocks.map(blockRenderer)}</div>
+        <BlockRenderer blocks={blocks} />
         {startDate && <p className="signup-form__date"><span>StartDate:</span> {formatDate(startDate)}</p>}
         {price && <p className="signup-form__price"><span>Price:</span> {price}</p>}
       </div>

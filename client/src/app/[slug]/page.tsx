@@ -1,6 +1,6 @@
 import { getPageBySlug } from "@/data/loaders";
 import { notFound } from "next/navigation";
-import { blockRenderer } from "@/utils/block-renderer";
+import { BlockRenderer } from "@/components/BlockRenderer";
 
 async function loader(slug: string) {
   const { data } = await getPageBySlug(slug);
@@ -16,6 +16,6 @@ interface PageProps {
 export default async function DynamicPageRoute({ params }: PageProps) {
   const slug = (await params).slug;
   const { blocks } = await loader(slug);
-  return <div>{blocks.map(blockRenderer)}</div>;
+  return <BlockRenderer blocks={blocks} />;
 }
 

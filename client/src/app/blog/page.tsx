@@ -1,7 +1,7 @@
 import { ContentList } from "@/components/ContentList";
 import { getPageBySlug } from "@/data/loaders";
 import { notFound } from "next/navigation";
-import { blockRenderer } from "@/utils/block-renderer";
+import { BlockRenderer } from "@/components/BlockRenderer";
 import { Card, type CardProps } from "@/components/ContentList";
 
 async function loader() {
@@ -22,7 +22,7 @@ export default async function BlogRoute({ searchParams }: PageProps) {
   if (!blocks) notFound();
   return (
     <div className="blog-page">
-      {blocks.map(blockRenderer)}
+      <BlockRenderer blocks={blocks} />
       <ContentList
         headline="Check out our latest articles"
         path="/api/articles"

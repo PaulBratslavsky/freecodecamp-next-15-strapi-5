@@ -1,7 +1,7 @@
 import type { ArticleProps, Block } from "@/types";
 import { getContentBySlug } from "@/data/loaders";
 import { notFound } from "next/navigation";
-import { blockRenderer } from "@/utils/block-renderer";
+import { BlockRenderer } from "@/components/BlockRenderer";
 import { formatDate } from "@/utils/format-date";
 
 import { HeroSection } from "@/components/blocks/HeroSection";
@@ -81,7 +81,7 @@ export default async function SingleBlogRoute({ params }: PageProps) {
           description={description}
           tableOfContents={tableOfContents}
         />
-        {blocks ? blocks.map(blockRenderer) : null}
+        <BlockRenderer blocks={blocks} />
         <ContentList
           headline="Featured Articles"
           path="/api/articles"

@@ -9,7 +9,7 @@ import { ParagraphWithImage } from "@/components/blocks/ParagraphWithImage";
 import { Paragraph } from "@/components/blocks/Paragraph";
 import { FullImage } from "@/components/blocks/FullImage";
 
-export function blockRenderer(block: Block) {
+function blockRenderer(block: Block) {
   switch (block.__component) {
     case "blocks.hero-section":
       return <HeroSection {...block} key={block.id} />;
@@ -30,4 +30,8 @@ export function blockRenderer(block: Block) {
     default:
       return null;
   }
+}
+
+export function BlockRenderer({ blocks }: { blocks: Block[] }) {
+  return blocks.map((block) => blockRenderer(block));
 }
