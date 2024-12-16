@@ -1,7 +1,7 @@
 import { ContentList } from "@/components/ContentList";
 import { getHomePage } from "@/data/loaders";
 import { notFound } from "next/navigation";
-import { Card, type CardProps } from "@/components/ContentList";
+import { Card, type CardProps } from "@/components/Card";
 import { BlockRenderer } from "@/components/BlockRenderer";
 async function loader() {
   const { data } = await getHomePage();

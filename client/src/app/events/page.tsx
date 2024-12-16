@@ -1,5 +1,5 @@
 import { ContentList } from "@/components/ContentList";
-import { Card, type CardProps } from "@/components/ContentList";
+import { Card, type CardProps } from "@/components/Card";
 import { EventSignupForm } from "@/components/EventSignupForm";
 import { getContentBySlug } from "@/data/loaders";
 import { EventProps } from "@/types";

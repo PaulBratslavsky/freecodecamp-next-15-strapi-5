@@ -1,6 +1,6 @@
 import type { EventProps } from "@/types";
 import { ContentList } from "@/components/ContentList";
-import { Card, type CardProps } from "@/components/ContentList";
+import { Card, type CardProps } from "@/components/Card";
 import { getContentBySlug } from "@/data/loaders";
 import { notFound } from "next/navigation";
 import { EventSignupForm } from "@/components/EventSignupForm";

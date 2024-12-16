@@ -2,7 +2,7 @@ import { ContentList } from "@/components/ContentList";
 import { getPageBySlug } from "@/data/loaders";
 import { notFound } from "next/navigation";
 import { BlockRenderer } from "@/components/BlockRenderer";
-import { Card, type CardProps } from "@/components/ContentList";
+import { Card, type CardProps } from "@/components/Card";
 
 async function loader() {
   const { data } = await getPageBySlug("blog");

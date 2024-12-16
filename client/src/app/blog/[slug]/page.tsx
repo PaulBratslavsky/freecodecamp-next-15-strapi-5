@@ -6,7 +6,7 @@ import { formatDate } from "@/utils/format-date";
 
 import { HeroSection } from "@/components/blocks/HeroSection";
 import { ContentList } from "@/components/ContentList";
-import { Card, type CardProps } from "@/components/ContentList";
+import { Card, type CardProps } from "@/components/Card";
 import Link from "next/link";
 
 interface PageProps {
